@@ -1,4 +1,4 @@
-# CORS
+# CORS-PSR7
 
 [![Latest Version](http://img.shields.io/packagist/v/phpnexus/cors-psr7.svg?style=flat-square)](https://github.com/phpnexus/cors-psr7/releases)
 [![Software License](https://img.shields.io/badge/license-Apache_2.0-brightgreen.svg?style=flat-square)](LICENSE.md)
