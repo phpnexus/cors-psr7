@@ -1,0 +1,33 @@
+{
+    "name": "phpnexus/cors-psr7",
+    "description": "Provides a lightweight CORS middleware for PSR-7 compatible frameworks.",
+    "keywords": [
+        "cors",
+        "middleware",
+        "psr-7",
+        "psr7"
+    ],
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Mark Prosser"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "phpnexus/cors": "dev-master",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8 || ^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpNexus\\Cors-Psr7\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
