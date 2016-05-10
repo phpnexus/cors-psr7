@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpNexus\\Cors-Psr7\\": "src/"
+            "PhpNexus\\CorsPsr7\\": "src/"
         }
     },
     "scripts": {
