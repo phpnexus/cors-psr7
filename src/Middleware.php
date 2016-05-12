@@ -40,13 +40,18 @@ class Middleware
         // Build CorsRequest from PSR-7 request
         $corsRequest = $this->buildCorsRequest($request);
 
+        // If NOT preflight request; perform $next action and collect response
+        if (!$corsRequest->isPreflight()) {
+            $response = $next($request, $response);
+        }
+
         // Process CorsRequest
         $corsResponse = $this->cors->process($corsRequest);
 
         // Apply CORS response parameters to PSR-7 response
         $response = $this->applyResponseParams($corsResponse, $response);
 
-        return $next($request, $response);
+        return $response;
     }
 
     /**
