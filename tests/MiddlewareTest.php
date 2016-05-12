@@ -49,7 +49,9 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) { return $response; });
+        $response = $middleware($request, $response, function($request, $response) {
+            return $response;
+        });
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
@@ -72,7 +74,9 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) { return $response; });
+        $response = $middleware($request, $response, function($request, $response) {
+            return $response;
+        });
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);

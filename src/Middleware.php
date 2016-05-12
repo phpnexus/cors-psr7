@@ -50,7 +50,7 @@ class Middleware
     }
 
     /**
-     * Build CorsRequest from PSR-7 ServerRequest
+     * Build CorsRequest from PSR-7 ServerRequest object
      *
      * @param Psr\Http\Message\ServerRequestInterface $request
      * @return PhpNexus\Cors\CorsRequest
@@ -80,7 +80,7 @@ class Middleware
     }
 
     /**
-     * Apply parameters from CORS response to PSR-7 response object
+     * Apply parameters from CORS response to PSR-7 Response object
      *
      * @param array $corsResponse
      * @param Psr\Http\Message\ResponseInterface $response
