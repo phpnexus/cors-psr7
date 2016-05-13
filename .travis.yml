@@ -7,3 +7,8 @@ php:
   - hhvm
 
 install: travis_retry composer install --no-interaction
+
+branches:
+  only:
+    - master
+    - /^release\/.*$/
