@@ -78,7 +78,13 @@ class Middleware
 
         // Set access control request headers if header exists
         if ($request->hasHeader('Access-Control-Request-Headers')) {
-            $corsRequest->setAccessControlRequestHeaders($request->getHeader('Access-Control-Request-Headers'));
+            /** Not sure if this is a bug in the Slim implementation of PSR-7, but it doesn't seem to separate headers properly */
+            $accessControlRequestHeaders = $request->getHeader('Access-Control-Request-Headers');
+            // If only one array element; explode by comma and space
+            if (count($accessControlRequestHeaders) === 1) {
+                $accessControlRequestHeaders = explode(', ', $accessControlRequestHeaders[0]);
+            }
+            $corsRequest->setAccessControlRequestHeaders($accessControlRequestHeaders);
         }
 
         return $corsRequest;
