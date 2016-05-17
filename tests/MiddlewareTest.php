@@ -42,7 +42,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withMethod('OPTIONS')
             ->withHeader('Origin', 'http://example.com')
             ->withHeader('Access-Control-Request-Method', 'PATCH')
-            ->withHeader('Access-Control-Request-Headers', 'Authorization')
+            ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization')
         ;
 
         $response = new Response;
