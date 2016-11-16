@@ -23,7 +23,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
     {
         $corsService = new CorsService([
             'allowMethods'     => ['PATCH', 'DELETE'],
-            'allowHeaders'     => ['Authorization'],
+            'allowHeaders'     => ['Authorization', 'Content-Type'],
             'allowOrigins'     => ['http://example.com'],
             'allowCredentials' => true,
             'exposeHeaders'    => ['X-My-Custom-Header'],
@@ -42,7 +42,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withMethod('OPTIONS')
             ->withHeader('Origin', 'http://example.com')
             ->withHeader('Access-Control-Request-Method', 'PATCH')
-            ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization')
+            ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization, Content-Type')
         ;
 
         $response = new Response;
@@ -56,7 +56,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
         $this->assertEquals(['PATCH', 'DELETE'], $response->getHeader('Access-Control-Allow-Methods'));
-        $this->assertEquals(['Authorization'], $response->getHeader('Access-Control-Allow-Headers'));
+        $this->assertEquals(['Authorization,Content-Type'], $response->getHeader('Access-Control-Allow-Headers'));
         $this->assertEquals('3600', $response->getHeader('Max-Age')[0]);
     }
 

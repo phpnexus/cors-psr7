@@ -111,7 +111,7 @@ class Middleware
         if (isset($corsResponse['access-control-allow-headers'])) {
             $response = $response->withHeader(
                 'Access-Control-Allow-Headers',
-                $corsResponse['access-control-allow-headers']
+                implode(',', $corsResponse['access-control-allow-headers'])     // Have to send this header as one comma-separated line due to IE bug
             );
         }
 
