@@ -80,9 +80,16 @@ class Middleware
         if ($request->hasHeader('Access-Control-Request-Headers')) {
             /** Not sure if this is a bug in the Slim implementation of PSR-7, but it doesn't seem to separate headers properly */
             $accessControlRequestHeaders = $request->getHeader('Access-Control-Request-Headers');
-            // If only one array element; explode by comma and space
+            // If only one array element; explode manually
             if (count($accessControlRequestHeaders) === 1) {
-                $accessControlRequestHeaders = explode(', ', $accessControlRequestHeaders[0]);
+                // If string contains a space; explode by comma & space
+                if (strpos($accessControlRequestHeaders[0], ' ') !== false) {
+                    $accessControlRequestHeaders = explode(', ', $accessControlRequestHeaders[0]);
+                }
+                // Else; explode by comma
+                else {
+                    $accessControlRequestHeaders = explode(',', $accessControlRequestHeaders[0]);
+                }
             }
             $corsRequest->setAccessControlRequestHeaders($accessControlRequestHeaders);
         }
