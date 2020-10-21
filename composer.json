@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "phpnexus/cors": "dev-master#fc1ea1b",
+        "phpnexus/cors": "^0.3.0@dev",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
