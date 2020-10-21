@@ -11,8 +11,8 @@ namespace PhpNexus\CorsPsr7\Tests;
 
 use PhpNexus\Cors\CorsService;
 use PhpNexus\CorsPsr7\Middleware as CorsPsr7Middleware;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Response;
 
 class MiddlewareTest extends \PHPUnit_Framework_TestCase
 {
