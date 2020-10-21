@@ -3,7 +3,7 @@
  * CORS PSR-7 middleware
  *
  * @link        https://github.com/phpnexus/cors-psr7
- * @copyright   Copyright (c) 2016 Mark Prosser
+ * @copyright   Copyright (c) 2020 Mark Prosser
  * @license     http://www.apache.org/licenses/LICENSE-2.0.html Apache License 2.0
  */
 
@@ -16,11 +16,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class Middleware
 {
-    /** @var PhpNexus\Cors\CorsService */
-    protected $cors;
+    /** @var \PhpNexus\Cors\CorsService */
+    private $cors;
 
     /**
-     * @param PhpNexus\Cors\CorsService $cors
+     * @param \PhpNexus\Cors\CorsService $cors
      */
     public function __construct(CorsService $cors)
     {
@@ -30,12 +30,12 @@ class Middleware
     /**
      * Invokable class
      *
-     * @param Psr\Http\Message\ServerRequestInterface $request
-     * @param Psr\Http\Message\ResponseInterface      $response
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface      $response
      * @param callable                                $next
-     * @return Psr\Http\Message\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
     {
         // Build CorsRequest from PSR-7 request
         $corsRequest = $this->buildCorsRequest($request);
@@ -57,10 +57,10 @@ class Middleware
     /**
      * Build CorsRequest from PSR-7 ServerRequest object
      *
-     * @param Psr\Http\Message\ServerRequestInterface $request
-     * @return PhpNexus\Cors\CorsRequest
+     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @return \PhpNexus\Cors\CorsRequest
      */
-    protected function buildCorsRequest(ServerRequestInterface $request)
+    protected function buildCorsRequest(ServerRequestInterface $request): CorsRequest
     {
         // Create CorsRequest and set method
         $corsRequest = (new CorsRequest)
@@ -101,10 +101,10 @@ class Middleware
      * Apply parameters from CORS response to PSR-7 Response object
      *
      * @param array $corsResponse
-     * @param Psr\Http\Message\ResponseInterface $response
-     * @return Psr\Http\Message\ResponseInterface
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function applyResponseParams(array $corsResponse, ResponseInterface $response)
+    protected function applyResponseParams(array $corsResponse, ResponseInterface $response): ResponseInterface
     {
         // Set Access-Control-Allow-Credentials header if appropriate
         if (isset($corsResponse['access-control-allow-credentials'])) {
