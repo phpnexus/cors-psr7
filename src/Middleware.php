@@ -17,7 +17,7 @@ use Psr\Http\Message\ServerRequestInterface;
 abstract class Middleware
 {
     /** @var \PhpNexus\Cors\CorsService */
-    private $cors;
+    protected $cors;
 
     /**
      * @param \PhpNexus\Cors\CorsService $cors
