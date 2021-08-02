@@ -10,14 +10,14 @@
 namespace PhpNexus\CorsPsr7\Tests;
 
 use PhpNexus\Cors\CorsService;
-use PhpNexus\CorsPsr7\Middleware as CorsPsr7Middleware;
+use PhpNexus\CorsPsr7\MiddlewarePsr15 as CorsPsr15Middleware;
+use PHPUnit\Framework\TestCase;
 use Laminas\Diactoros\ServerRequest;
-use Laminas\Diactoros\Response;
 
-class MiddlewareTest extends \PHPUnit_Framework_TestCase
+class MiddlewarePsr15Test extends TestCase
 {
     /**
-     * @return CorsService
+     * @return CorsPsr15Middleware
      */
     public function build_middleware()
     {
@@ -30,7 +30,7 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
             'maxAge'           => 3600,
         ]);
 
-        return new CorsPsr7Middleware($corsService);
+        return new CorsPsr15Middleware($corsService);
     }
 
     /**
@@ -45,13 +45,9 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization, Content-Type')
         ;
 
-        $response = new Response;
-
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) {
-            return $response;
-        });
+        $response = $middleware($request, new MockRequestHandler);
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
@@ -70,13 +66,9 @@ class MiddlewareTest extends \PHPUnit_Framework_TestCase
             ->withHeader('Origin', 'http://example.com')
         ;
 
-        $response = new Response;
-
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) {
-            return $response;
-        });
+        $response = $middleware($request, new MockRequestHandler);
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
