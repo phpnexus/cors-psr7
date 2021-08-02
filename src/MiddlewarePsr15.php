@@ -27,13 +27,11 @@ class MiddlewarePsr15 extends Middleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        // Handle request
+        $response = $handler->handle($request);
+
         // Build CorsRequest from PSR-7 request
         $corsRequest = $this->buildCorsRequest($request);
-
-        // If NOT preflight request; perform $next action and collect response
-        if (!$corsRequest->isPreflight()) {
-            $response = $handler->handle($request);
-        }
 
         // Process CorsRequest
         $corsResponse = $this->cors->process($corsRequest);
