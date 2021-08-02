@@ -12,7 +12,7 @@ namespace PhpNexus\CorsPsr7;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class MiddlewareSlim3 extends Middleware
+class MiddlewarePsr7 extends Middleware
 {
     /**
      * Invokable class
