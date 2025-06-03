@@ -8,20 +8,20 @@
     "packages": [
         {
             "name": "phpnexus/cors",
-            "version": "0.3.4",
+            "version": "0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpnexus/cors.git",
-                "reference": "c7f56cf61faa3e1c59c08c5f5c594c7aba79af37"
+                "reference": "4fd1a3ad0e83681c8bc5f828181b631db8ba1de7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpnexus/cors/zipball/c7f56cf61faa3e1c59c08c5f5c594c7aba79af37",
-                "reference": "c7f56cf61faa3e1c59c08c5f5c594c7aba79af37",
+                "url": "https://api.github.com/repos/phpnexus/cors/zipball/4fd1a3ad0e83681c8bc5f828181b631db8ba1de7",
+                "reference": "4fd1a3ad0e83681c8bc5f828181b631db8ba1de7",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4|^8.1",
+                "php": "^8.1",
                 "psr/log": "^1.1|^2|^3"
             },
             "require-dev": {
@@ -48,9 +48,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpnexus/cors/issues",
-                "source": "https://github.com/phpnexus/cors/tree/0.3.4"
+                "source": "https://github.com/phpnexus/cors/tree/0.3.5"
             },
-            "time": "2023-02-20T07:59:53+00:00"
+            "time": "2025-06-03T09:04:44+00:00"
         },
         {
             "name": "psr/http-message",
