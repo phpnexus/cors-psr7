@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "phpnexus/cors",
-            "version": "0.3.5",
+            "version": "0.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpnexus/cors.git",
-                "reference": "4fd1a3ad0e83681c8bc5f828181b631db8ba1de7"
+                "reference": "02b5baa183cc0a6f40fdab5af00dddfe5b2c791a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpnexus/cors/zipball/4fd1a3ad0e83681c8bc5f828181b631db8ba1de7",
-                "reference": "4fd1a3ad0e83681c8bc5f828181b631db8ba1de7",
+                "url": "https://api.github.com/repos/phpnexus/cors/zipball/02b5baa183cc0a6f40fdab5af00dddfe5b2c791a",
+                "reference": "02b5baa183cc0a6f40fdab5af00dddfe5b2c791a",
                 "shasum": ""
             },
             "require": {
@@ -25,12 +25,13 @@
                 "psr/log": "^1.1|^2|^3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^10"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "PhpNexus\\Cors\\": "src/"
+                    "PhpNexus\\Cors\\": "src/",
+                    "PhpNexus\\Cors\\Tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -48,9 +49,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpnexus/cors/issues",
-                "source": "https://github.com/phpnexus/cors/tree/0.3.5"
+                "source": "https://github.com/phpnexus/cors/tree/0.3.6"
             },
-            "time": "2025-06-03T09:04:44+00:00"
+            "time": "2026-02-12T07:29:46+00:00"
         },
         {
             "name": "psr/http-message",
