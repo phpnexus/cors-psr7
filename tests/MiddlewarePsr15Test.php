@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CORS PSR-7 middleware test
  *
@@ -11,11 +12,14 @@ namespace PhpNexus\CorsPsr7\Tests;
 
 use PhpNexus\Cors\CorsService;
 use PhpNexus\CorsPsr7\MiddlewarePsr15 as CorsPsr15Middleware;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Laminas\Diactoros\ServerRequest;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class MiddlewarePsr15Test extends TestCase
 {
+    use RequestResponseStubTrait;
+
     /**
      * @return CorsPsr15Middleware
      */
@@ -38,16 +42,13 @@ class MiddlewarePsr15Test extends TestCase
      */
     public function test_preflight_request()
     {
-        $request = (new ServerRequest)
-            ->withMethod('OPTIONS')
-            ->withHeader('Origin', 'http://example.com')
-            ->withHeader('Access-Control-Request-Method', 'PATCH')
-            ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization, Content-Type')
-        ;
+        $request = $this->createPreflightRequestStub();
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, new MockRequestHandler);
+        $response = $this->createPreflightResponseStub();
+
+        $response = $middleware($request, $this->createRequestHandlerStub($response));
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
@@ -61,17 +62,26 @@ class MiddlewarePsr15Test extends TestCase
      */
     public function test_actual_request()
     {
-        $request = (new ServerRequest)
-            ->withMethod('PATCH')
-            ->withHeader('Origin', 'http://example.com')
-        ;
+        $request = $this->createActualRequestStub();
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, new MockRequestHandler);
+        $response = $this->createActualResponseStub();
+
+        $response = $middleware($request, $this->createRequestHandlerStub($response));
 
         $this->assertEquals('http://example.com', $response->getHeader('Access-Control-Allow-Origin')[0]);
         $this->assertEquals('true', $response->getHeader('Access-Control-Allow-Credentials')[0]);
         $this->assertEquals(['X-My-Custom-Header'], $response->getHeader('Access-Control-Expose-Headers'));
+    }
+
+    private function createRequestHandlerStub($response): RequestHandlerInterface & Stub
+    {
+        /** @var \Psr\Http\Server\RequestHandlerInterface & \PHPUnit\Framework\MockObject\Stub */
+        $stub = $this->createStub(RequestHandlerInterface::class);
+        $stub->method('handle')
+            ->willReturn($response);
+
+        return $stub;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CORS PSR-7 middleware test
  *
@@ -12,11 +13,11 @@ namespace PhpNexus\CorsPsr7\Tests;
 use PhpNexus\Cors\CorsService;
 use PhpNexus\CorsPsr7\MiddlewarePsr7 as CorsPsr7Middleware;
 use PHPUnit\Framework\TestCase;
-use Laminas\Diactoros\ServerRequest;
-use Laminas\Diactoros\Response;
 
 class MiddlewarePsr7Test extends TestCase
 {
+    use RequestResponseStubTrait;
+
     /**
      * @return CorsPsr7Middleware
      */
@@ -39,18 +40,24 @@ class MiddlewarePsr7Test extends TestCase
      */
     public function test_preflight_request()
     {
-        $request = (new ServerRequest)
-            ->withMethod('OPTIONS')
-            ->withHeader('Origin', 'http://example.com')
-            ->withHeader('Access-Control-Request-Method', 'PATCH')
-            ->withHeader('Access-Control-Request-Headers', 'Accept, Authorization, Content-Type')
-        ;
+        $request = $this->createStub(\Psr\Http\Message\ServerRequestInterface::class);
 
-        $response = new Response;
+        $request->method('getMethod')
+            ->willReturn('OPTIONS');
+
+        $request->method('getHeaders')
+            ->willReturn([
+                'Origin' => 'http://example.com',
+                'Access-Control-Request-Method' => 'PATCH',
+                'Access-Control-Request-Headers' => 'Accept, Authorization, Content-Type',
+            ]);
+
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) {
+        $response = $this->createPreflightResponseStub();
+
+        $response = $middleware($request, $response, function ($request, $response) {
             return $response;
         });
 
@@ -66,16 +73,21 @@ class MiddlewarePsr7Test extends TestCase
      */
     public function test_actual_request()
     {
-        $request = (new ServerRequest)
-            ->withMethod('PATCH')
-            ->withHeader('Origin', 'http://example.com')
-        ;
+        $request = $this->createStub(\Psr\Http\Message\ServerRequestInterface::class);
 
-        $response = new Response;
+        $request->method('getMethod')
+            ->willReturn('PATCH');
+
+        $request->method('getHeaders')
+            ->willReturn([
+                'Origin' => 'http://example.com',
+            ]);
 
         $middleware = $this->build_middleware();
 
-        $response = $middleware($request, $response, function($request, $response) {
+        $response = $this->createActualResponseStub();
+
+        $response = $middleware($request, $response, function ($request, $response) {
             return $response;
         });
 
