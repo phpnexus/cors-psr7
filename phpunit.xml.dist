@@ -6,11 +6,16 @@
     beStrictAboutOutputDuringTests="true"
     colors="true"
     processIsolation="false"
-    bootstrap="tests/bootstrap.php"
+    bootstrap="vendor/autoload.php"
 >
     <testsuites>
         <testsuite name="CORS PSR-7 Test Suite">
-            <directory>./tests/</directory>
+            <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
 </phpunit>
